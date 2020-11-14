@@ -1,37 +1,18 @@
 package org.intarch.assignment2;
 
-import java.util.List;
+public class ManagePersonalController {
 
-public class ManagePersonalController implements ManagePersonal{
-
-	@Override
-	public void createSalesMan(SalesMan record) {
-		// TODO Auto-generated method stub
+	ManagePersonalService managePersonal = new ManagePersonalService();
+	
+	//addSalesman Controller
+	public boolean addSalesman(String firstname, String lastname, Integer id) {
+		SalesMan s = new SalesMan(firstname, lastname, id);
+		managePersonal.createSalesMan(s);
 		
-	}
-
-	@Override
-	public void addPerformanceReord(EvaluationRecord record, int sid) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public SalesMan readSalesMan(int sid) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<SalesMan> querySalesMan(String attribute, String key) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public EvaluationRecord readEvaluationRecords(int sid) {
-		// TODO Auto-generated method stub
-		return null;
+		if(managePersonal.readSalesMan(id)!=null) {
+			return true;
+		}
+		return false;
 	}
 
 }

@@ -1,16 +1,15 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import org.bson.Document;
-import org.intarch.assignment2.SalesMan;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+
+import org.bson.Document;
+import org.intarch.assignment2.SalesMan;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class HighPerformanceTest {
