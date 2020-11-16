@@ -8,7 +8,6 @@ public class runner {
 		boolean t = c.addSalesman("Shahzeb", "Ali", 9029774);
 		if(t) {System.out.println("Recordadded");}
 		
-
 	}
 
 }

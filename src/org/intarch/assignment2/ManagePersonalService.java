@@ -15,8 +15,8 @@ public class ManagePersonalService implements ManagePersonal{
 	
     private MongoClient client = new MongoClient("localhost", 27017);
     private MongoDatabase supermongo = client.getDatabase("highperformance");
-    private MongoCollection<Document> salesmen = supermongo.getCollection("salesmen");
-    private MongoCollection<Document> evaluation = supermongo.getCollection("evaluation");
+    public MongoCollection<Document> salesmen = supermongo.getCollection("salesmen");
+    public MongoCollection<Document> evaluation = supermongo.getCollection("evaluation");
 
 	@Override
 	public void createSalesMan(SalesMan record) {
@@ -30,30 +30,45 @@ public class ManagePersonalService implements ManagePersonal{
 		record.setSid(sid);
 		record.toDocument();
         // saving the EvaluationRecord object
-        salesmen.insertOne(record.toDocument());
+		evaluation.insertOne(record.toDocument());
 	}
 
 	@Override
 	public SalesMan readSalesMan(int sid) {
-		// TODO Auto-generated method stub
-		Document newDocument = this.salesmen.find().first();
-		SalesMan s = new SalesMan(null, null, sid);
+		
+		Document newDocument = this.salesmen.find(eq("_id",sid)).first();
+		SalesMan s = new SalesMan();
 		s.setFirstname(newDocument.getString("firstname"));
 		s.setLastname(newDocument.getString("lastname"));
-		s.setId((Integer) newDocument.get("id"));
+		s.setId((Integer) newDocument.get("_id"));
 		return s;
 	}
 
 	@Override
 	public List<SalesMan> querySalesMan(String attribute, String key) {
 		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public EvaluationRecord readEvaluationRecords(int sid) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		EvaluationRecord er = new EvaluationRecord();
+		System.out.println("printing er : "+er);
+		Document newDocument = this.evaluation.find(eq("_id",sid)).first();
+		System.out.println("document forund " + newDocument);
+		er.setSocialBehaviourToEmployee((Integer)newDocument.get("socialBehaviourToEmployee"));
+		er.setAttitudeTowardClients((Integer)newDocument.get("attitudeTowardClients"));
+		er.setCommunicationSkills((Integer)newDocument.get("communicationSkills"));
+		er.setLeadershipCompetence((Integer)newDocument.get("leadershipCompetence"));
+		er.setOpennessToEmployees((Integer)newDocument.get("opennessToEmployees"));
+		er.setIntegrityToCompany((Integer)newDocument.get("IntegrityToCompany"));
+		er.setSid((Integer)newDocument.get("_id"));
+		er.setYear((Integer)newDocument.get("year"));
+		System.out.println("printing er : "+er);
+		
+		return er;
 	}
 
 }
